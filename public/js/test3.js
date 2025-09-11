@@ -16,3 +16,4 @@ if (result % 3 == 0) {
   console.log(result + "는 3의 배수가 아닙니다");
 }
 console.log(result);
+console.log("여기 수정됨");
