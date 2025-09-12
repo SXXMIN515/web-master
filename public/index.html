@@ -9,7 +9,18 @@
 </head>
 <body>
   <h3>오늘은 반복문, 함수, 이벤트</h3>
-  <script src="./js/2nd/function.js"></script>
+  <label for="n1">값1: </label>
+  <input type="number" id="n1" name="n1" value="0">
+  <select onchange="calculate()" id="opr">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+  </select>
+  <label for="n2">값2: </label>
+  <input type="number" id="n2" name="n2" value="0">
+  <label for="result">결과값: </label>
+  <input type="number" id="result" name="result" value="0">
+  <script src="./js/2nd/todo.js"></script>
 </body>
-
 </html>
