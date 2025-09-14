@@ -25,15 +25,15 @@ function calculate(){
       result = first / last;
   }
 
-  if (opr == '+') {
-    result = parseInt(first) + parseInt(last);
-  } else if (opr == '-') {
-    result = first - last;
-  } else if (opr == '*') {
-    result = first * last;
-  } else {
-    result = first / last;
-  }
+  // if (opr == '+') {
+  //   result = parseInt(first) + parseInt(last);
+  // } else if (opr == '-') {
+  //   result = first - last;
+  // } else if (opr == '*') {
+  //   result = first * last;
+  // } else {
+  //   result = first / last;
+  // }
 
   document.querySelector('#result').value = result;
 } // end of calculate().

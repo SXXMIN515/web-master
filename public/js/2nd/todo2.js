@@ -8,9 +8,8 @@
 function calculate() {
   let n1 = document.querySelector('#n1').value;
   let n2 = document.querySelector('#n2').value;
-  let opr = document.querySelector('#oper').value;
+  let opr = document.querySelector('#opr').value;
   let result = 0;
-  console.log(n1, n2, opr);
 
   switch (opr) {
     case '+' :
@@ -24,21 +23,23 @@ function calculate() {
       break;
     case '/' :
       result = divide(n1, n2);
-      break;
   }
-  
+
   document.querySelector('#result').value = result;
 }
 
 function plus(n1, n2) {
   return parseInt(n1) + parseInt(n2);
 }
+
 function minus(n1, n2) {
   return parseInt(n1) - parseInt(n2);
 }
+
 function multiply(n1, n2) {
   return parseInt(n1) * parseInt(n2);
 }
+
 function divide(n1, n2) {
   return parseInt(n1) / parseInt(n2);
 }
