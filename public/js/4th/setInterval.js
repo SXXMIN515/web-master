@@ -2,8 +2,7 @@
 document.querySelector('table').remove();
 
 // sample data.
-//let str = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, possimus nemo voluptatum temporibus iste iusto neque minima ipsam officia sed doloremque molestias quisquam, praesentium aut porro ipsa sit reprehenderit laborum.`;
-let str = `Lorem ipsum`;
+let str = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, possimus nemo voluptatum temporibus iste iusto neque minima ipsam officia sed doloremque molestias quisquam, praesentium aut porro ipsa sit reprehenderit laborum.`;
 let strAry = str.split(' '); // 구분자(' ')를 기준으로 문자열 배열로 생성.
 const outer = document.querySelector('div.outer');
 
@@ -15,7 +14,8 @@ strAry.forEach(function (item, idx, ary) {
   outer.appendChild(div);
 });
 
-let timing = 5;
+const timer = document.querySelector('#timer');
+let timing = 60;
 
 // 이벤트(찾기 버튼 클릭하면 alert('클릭'))
 document.querySelector('button#search_word')
@@ -43,13 +43,28 @@ document.querySelector('button#search_word')
     document.querySelector('#user_value').value = '';
     console.log(document.querySelectorAll('div.inner').length);
     //document.querySelectorAll('div.inner').length == 0
-    if (timing < 0) {
-      alert('실패');
-    } else if (document.querySelectorAll('div.inner').length == 0) {
+    if (timing >= 0 && document.querySelectorAll('div.inner').length == 0) {
       alert('성공');
     }
   });
 
+let isFailed = false;
 setInterval(function () {
   timing--;
+
+  if (document.querySelectorAll('div.inner').length == 0) {
+    timer.innerText = '성공';
+    return;
+  }
+
+  if (timing < 0) {
+    timer.innerText = '실패';
+  } else {
+    timer.innerText = `남은 시간: ${timing}초`;
+  }
+
+  if (!isFailed && timing < 0 && document.querySelectorAll('div.inner').length > 0) {
+    alert('실패');
+    isFailed = true;
+  }
 }, 1000);
