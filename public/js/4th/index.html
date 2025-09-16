@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4일차</title>
+  <style>
+    .saturday {
+      background-color: blue;
+      color: white;
+    }
+
+    .sunday {
+      background-color: red;
+      color: white;
+    }
+
+    .outer {
+      width: 800px;
+      height: 300px;
+      background-color: rgb(253, 253, 117);
+    }
+
+    .outer>.inner {
+      display: inline-block;
+      width: 95px;
+      height: 40px;
+      background-color: rgb(97, 247, 210);
+      color: rgb(0, 0, 0);
+      margin: 2px;
+      text-align: center;
+      line-height: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>배열, 메소드</h3>
+  <table border="2">
+    <thead>
+      <tr>
+        <th>일</th>
+        <th>월</th>
+        <th>화</th>
+        <th>수</th>
+        <th>목</th>
+        <th>금</th>
+        <th>토</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <input type="text" id="user_value">
+  <button id="search_word">찾기</button>
+  <div class="outer"></div>
+  <script src="./setInterval.js"></script>
+</body>
+
+</html>
