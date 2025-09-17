@@ -1,0 +1,34 @@
+Node.js 
+https://nodejs.org/ko/download - windows 설치프로그램(.msi) // 다운로드
+
+D:/Dev/git/server    // server 폴더 생성
+
+cmd 창
+cd D:/Dev/git/server 
+npm install -g json-server
+npm install 0g npm@11.6.0
+
+vscode
+작업영역을 다른 이름으로 추가 web-master
+작업영역에 폴더 추가 server
+server 폴더에 db.json 파일 생성
+db.json 파일 내용 추가하기
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "json test",
+      "author": "user01"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "content": "1번 글의 댓글",
+      "postId": 1
+    }
+  ]
+}
+
+cmd
+json-server --watch db.json

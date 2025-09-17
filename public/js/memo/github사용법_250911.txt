@@ -1,0 +1,49 @@
+d:/Dev/git/web-master/public
+
+local: PC
+remote: github.com - repository: web-master
+
+https://github.com/SXXMIN515/web-master.git
+
+
+!!!
+commit & push 하는 법
+staging - commit - push
+git add *  -> git commit -m "메세지" -> git push -u origin main
+
+원격에서 pull 받는 법
+git pull origin main
+
+원격 -> 로컬 복제(clone)
+git clone https://github.com/SXXMIN515/web-master.git
+
+scm-git 1) branch: main, 2) credential: none
+
+
+d:/Dev/git 까지 만들고 로컬 복제
+
+확장 - beautify - 파일 - 기본 설정 - 바로가기 키 - beautify selection- ctrl shift f
+
+숙제
+1) git 다운 받고 clone
+2) todo.js 만들어서
+   switch case 조건문을 if .. else if .. else 구문으로 바꿔서 작성해보기. 
+
+1. https://git-scm.com/ 들어가서 2.51.0 다운로드 -> git for windows/x64 Setup 클릭
+   scm-git 1) branch: main, 2) credential: none 따로 바꿔야함
+
+2. d:/Dev/git 까지 만들고 로컬 복제
+   원격 -> 로컬 복제(clone)
+   git clone https://github.com/SXXMIN515/web-master.git
+
+3. vscode 들어가서
+   확장 - beautify - 파일 - 기본 설정 - 바로가기 키 - beautify selection- ctrl shift f 단축키
+
+4. todo.js 만들기
+
+5. 커밋앤 푸쉬 하기
+   git add *  -> git commit -m "메세지" -> git push -u origin main
+   아이디, 토큰 입력 하면 끝
+
+ 
+
