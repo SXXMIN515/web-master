@@ -1,5 +1,4 @@
-// data.js
-const json = `[{"id":1,"first_name":"Stillmann","last_name":"Speirs","email":"sspeirs0@symantec.com","gender":"Agender","salary":7506},
+[{"id":1,"first_name":"Stillmann","last_name":"Speirs","email":"sspeirs0@symantec.com","gender":"Agender","salary":7506},
 {"id":2,"first_name":"Feodora","last_name":"Giovanni","email":"fgiovanni1@narod.ru","gender":"Female","salary":8880},
 {"id":3,"first_name":"Tallie","last_name":"Beldham","email":"tbeldham2@privacy.gov.au","gender":"Male","salary":8102},
 {"id":4,"first_name":"Loy","last_name":"Durnford","email":"ldurnford3@wufoo.com","gender":"Agender","salary":7105},
@@ -13,9 +12,4 @@ const json = `[{"id":1,"first_name":"Stillmann","last_name":"Speirs","email":"ss
 {"id":12,"first_name":"Gasparo","last_name":"Bearfoot","email":"gbearfootb@posterous.com","gender":"Male","salary":5184},
 {"id":13,"first_name":"Andrej","last_name":"Kirmond","email":"akirmondc@scribd.com","gender":"Male","salary":8085},
 {"id":14,"first_name":"Rosalie","last_name":"Mowat","email":"rmowatd@wix.com","gender":"Female","salary":8943},
-{"id":15,"first_name":"Trenton","last_name":"Truter","email":"ttrutere@g.co","gender":"Male","salary":3685}]`;
-// json 문자열.
-const data = JSON.parse(json);
-console.log(data);
-const jsonObj = JSON.stringify(data);
-console.log(jsonObj);
+{"id":15,"first_name":"Trenton","last_name":"Truter","email":"ttrutere@g.co","gender":"Male","salary":3685}]

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f6f9;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+      /* 줄 간격을 넓혀 읽기 편하게 */
+    }
+
+    .data-container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      max-width: 700px;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .data-container div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+
+    .data-container div:last-child {
+      border-bottom: none;
+    }
+
+    .data-id {
+      font-weight: bold;
+      color: #555555;
+      font-size: 20px;
+      text-align: center;
+      min-width: 40px;
+    }
+
+    .data-title {
+      color: #3a79c3;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.5;
+      word-wrap: break-word;
+      max-width: 400px;
+    }
+
+    .data-author {
+      font-style: italic;
+      color: #8c8c8c;
+      font-size: 18px;
+      text-align: right;
+      min-width: 120px;
+    }
+
+    /* Hover effect */
+    .data-container div:hover {
+      background-color: #f4f8ff;
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    /* Hover effect for title */
+    .data-container div:hover .data-title {
+      color: #e24e6e;
+      /* Color change on hover */
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 30px auto 40px;
+      background-color: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    input[type="text"] {
+      flex: 1 1 250px;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #3a79c3;
+      box-shadow: 0 0 5px rgba(58, 121, 195, 0.5);
+    }
+
+    button[type="submit"] {
+      background-color: #3a79c3;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #e24e6e;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form action="./index.html" method="get">
+      <input type="text" name="title" placeholder="Enter title">
+      <input type="text" name="author" placeholder="Enter author">
+      <button type="submit" value="추가">추가</button>
+    </form>
+  </div>
+  <div class="data-container" id="data-container">
+
+  </div>
+  <script src="./db.js"></script>
+</body>
+
+</html>
