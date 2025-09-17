@@ -7,10 +7,10 @@
 // ****
 // *****
 
-let star = '';
-for (let i = 1; i <= 5; i++) {
-  star += '*';
-  console.log(star);
+let stars = '';
+for (let s = 1; s <= 5; s++) {
+  stars += '*';
+  console.log(stars);
 }
 
 // *****
@@ -19,13 +19,13 @@ for (let i = 1; i <= 5; i++) {
 //    **
 //     *
 
-star = '';
-let space = '';
-for (let i = 1; i <= 5; i++) {
-  space += ' ';
-  console.log(space);
-  for (let j = 1; i <= 5; i++) {
-    star += '*';
-    console.log(star);
+for (let i = 0; i <= 4; i++) {
+  let line = '';
+  for (let j = 0; j < i; j++) {
+    line += ' ';
   }
+  for (let k = 0; k < 5 - i; k++) {
+    line += '*';
+  }
+  console.log(line);
 }

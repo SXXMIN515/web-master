@@ -6,7 +6,7 @@ D:/Dev/git/server    // server 폴더 생성
 cmd 창
 cd D:/Dev/git/server 
 npm install -g json-server
-npm install 0g npm@11.6.0
+npm install -g npm@11.6.0
 
 vscode
 작업영역을 다른 이름으로 추가 web-master
