@@ -38,12 +38,38 @@ function makeRow(post = {
 }) {
   let fields = ["id", "title", "author"];
   let div = document.createElement('div');
+  // div에 클릭이벤트
+  div.addEventListener('click', function () {
+    // 댓글목록을 가져와서 보여주기
+    const target = this; // this에 바인딩되는 값을 확인.
+    const post_id = this.children[0].innerHTML; // this를 확인 후 postId 값을 계산
+    // 댓글목록 만들기.
+    const cList = document.querySelector(".comments"); // <div class='comments'> 찾기.
+    cList.innerHTML = ""; // html값을 초기화하기
+    // 전체 댓글목록에서 post에 해당하는 댓글을 filtering 하기
+    const filterList = comments.filter((item) => item.postId == post_id);
+    // 댓글목록을 반복하면서 <span>댓글번호</span><span>댓글내용</span> 만들기.
+    filterList.forEach((item) => {
+      let div = document.createElement("div");
+      let span = document.createElement("span"); // 댓글id
+      span.innerHTML = item.id;
+      div.appendChild(span);
+      span = document.createElement("span"); // 댓글내용.
+      span.innerHTML = item.content;
+      div.appendChild(span);
+      // div와 span의 부모자식관계 만들기.
+      cList.appendChild(div); // <div class='container'>의 부모자식관계 만들기.
+    });
+    target.appendChild(cList); // 선택한 div에 하위요소로 보여주기.
+  }); // div의 클릭이벤트 끝.
+
+  // 글목록 만들기
   for (let i = 0; i < fields.length; i++) {
     let span = document.createElement('span');
     span.innerHTML = post[fields[i]];
     span.setAttribute('class', 'data-' + fields[i]);
     div.appendChild(span);
-  };
+  }
   return div; // <div><span data-id>032a</span>*3</div>
 };
 
@@ -59,6 +85,16 @@ xhtp.onload = function () {
     document.querySelector('#data-container').appendChild(div);
   });
 }
+
+let comments = [];
+
+// 댓글목록.
+const xhtp1 = new XMLHttpRequest();
+xhtp1.open('get', 'http://localhost:3000/comments');
+xhtp1.send();
+xhtp1.onload = function () {
+  comments = JSON.parse(xhtp1.responseText);
+};
 
 
 // forEach

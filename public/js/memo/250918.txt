@@ -1,0 +1,5 @@
+자바스크립트 참고서
+https://developer.mozilla.org/ko/
+
+p107 8장 array 실습
+promise fetch

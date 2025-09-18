@@ -12,70 +12,6 @@
       margin: 0;
       padding: 20px;
       line-height: 1.6;
-      /* 줄 간격을 넓혀 읽기 편하게 */
-    }
-
-    .data-container {
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-      padding: 25px;
-      max-width: 700px;
-      margin: auto;
-      overflow: hidden;
-    }
-
-    .data-container div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      padding: 16px 0;
-      border-bottom: 1px solid #f0f0f0;
-      transition: all 0.3s ease;
-    }
-
-    .data-container div:last-child {
-      border-bottom: none;
-    }
-
-    .data-id {
-      font-weight: bold;
-      color: #555555;
-      font-size: 20px;
-      text-align: center;
-      min-width: 40px;
-    }
-
-    .data-title {
-      color: #3a79c3;
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 1.5;
-      word-wrap: break-word;
-      max-width: 400px;
-    }
-
-    .data-author {
-      font-style: italic;
-      color: #8c8c8c;
-      font-size: 18px;
-      text-align: right;
-      min-width: 120px;
-    }
-
-    /* Hover effect */
-    .data-container div:hover {
-      background-color: #f4f8ff;
-      transform: translateX(5px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-    }
-
-    /* Hover effect for title */
-    .data-container div:hover .data-title {
-      color: #e24e6e;
-      /* Color change on hover */
     }
 
     .container {
@@ -124,6 +60,101 @@
     button[type="submit"]:hover {
       background-color: #e24e6e;
     }
+
+    .data-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 게시글 한 건 (글 + 댓글 컨테이너) */
+    .data-container>div {
+      display: flex;
+      flex-direction: column;
+      /* 글과 댓글 세로 배치 */
+      padding: 16px 0;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+
+    /* 게시글 클릭 영역 (아이디, 제목, 작성자) */
+    .data-container>div>.post-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .data-id {
+      font-weight: bold;
+      color: #555555;
+      font-size: 20px;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .data-title {
+      color: #3a79c3;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.5;
+      word-wrap: break-word;
+      max-width: 400px;
+    }
+
+    .data-author {
+      font-style: italic;
+      color: #8c8c8c;
+      font-size: 18px;
+      min-width: 120px;
+      text-align: right;
+    }
+
+    /* Hover 효과 */
+    .data-container>div:hover>.post-info {
+      background-color: #f4f8ff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateX(5px);
+    }
+
+    .data-container>div:hover>.post-info .data-title {
+      color: #e24e6e;
+    }
+
+    /* 댓글 영역 */
+    .comments {
+      margin-top: 10px;
+      padding-left: 15px;
+      border-left: 3px solid #3a79c3;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* 댓글 한 건 */
+    .comments>div {
+      display: flex;
+      gap: 10px;
+    }
+
+    .comment-id {
+      font-weight: bold;
+      min-width: 25px;
+      color: #3a79c3;
+    }
+
+    .comment-content {
+      flex: 1;
+      white-space: normal;
+    }
   </style>
 </head>
 
@@ -136,7 +167,10 @@
     </form>
   </div>
   <div class="data-container" id="data-container">
-
+    <!-- <div class="comments">
+    </div> -->
+  </div>
+  </div>
   </div>
   <script src="./db.js"></script>
 </body>
