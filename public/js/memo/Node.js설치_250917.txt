@@ -19,6 +19,16 @@ db.json 파일 내용 추가하기
       "id": "1",
       "title": "json test",
       "author": "user01"
+    },
+    {
+      "id": "2",
+      "title": "새로글입니다",
+      "author": "user02"
+    },
+    {
+      "id": "3",
+      "title": "샘플내용",
+      "author": "user03"
     }
   ],
   "comments": [
@@ -26,6 +36,31 @@ db.json 파일 내용 추가하기
       "id": "1",
       "content": "1번 글의 댓글",
       "postId": 1
+    },
+    {
+      "id": "2",
+      "content": "1번 글의 댓글2",
+      "postId": 1
+    },
+    {
+      "id": "3",
+      "content": "2번 글의 댓글",
+      "postId": 2
+    },
+    {
+      "id": "4",
+      "content": "2번 글의 댓글2",
+      "postId": 2
+    },
+    {
+      "id": "5",
+      "content": "3번 글의 댓글",
+      "postId": 3
+    },
+    {
+      "id": "6",
+      "content": "3번 글의 댓글2",
+      "postId": 3
     }
   ]
 }
