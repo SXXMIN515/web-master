@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+  <h3>수정화면</h3>
+</body>
+<div class="addStudent">
+  <form action="">
+    <label for="sno">학생번호</label>
+    <input type="text" id="sno" disabled>
+    <label for="sname">이름</label>
+    <input type="text" id="sname">
+    <label for="score">점수</label>
+    <input type="text" id="score">
+    <input type="submit" value="저장">
+  </form>
+  <script>
+    // 저장이벤트.
+    document.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      let changedName = document.getElementById("sname").value;
+      let changedScore = document.getElementById("score").value;
+      // data 값을 변경.
+      data.forEach((item) => {
+        if (item.sno == sno) {
+          item.sname = changedName;
+          item.score = changedScore;
+        }
+      });
+      localStorage.setItem('students', JSON.stringify(data)); // 저장
+      localStorage.removeItem("search");
+      location.href = "index.html";
+    });
+    // 조회
+    let data = [];
+    let sno = localStorage.getItem('search'); // 검색정보
+    if (!sno) {
+      alert('정상적인 경로로 접근하세요.');
+      location.href = "index.html";
+    } else {
+      data = JSON.parse(localStorage.getItem('students')); // 전체목록
+      let result = data.filter(item => item.sno == sno)[0]; // 학생정보 검색
+      console.log(result);
+      // 검색결과를 화면에 출력.
+      document.getElementById('sno').value = result.sno;
+      document.getElementById('sname').value = result.sname;
+      document.getElementById('score').value = result.score;
+    }
+  </script>
+</div>
+
+</html>

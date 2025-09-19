@@ -1,0 +1,26 @@
+게시판
+
+localStorage.setItem('myName', "권수민");
+localStorage.setItem('myInfo', '{"name":"Hong", "age": 20}');
+let info = JSON.parse(localStorage.getItem("myInfo"));
+console.log(info);
+
+localStorage.setItem('boardList', JSON.stringify([{
+    bno: 1,
+    title: '연습글입니다.',
+    writer: 'user01'
+  },
+  {
+    bno: 2,
+    title: '연습글입니다2.',
+    writer: 'user01'
+  },
+]));
+
+과제
+db.js
+삭제 버튼, 댓글 출력
+
+login.html 만들어서 저장할 정보 초기화 시키기
+성공하면 index.html로 이동
+실패하면 기존페이지에서 alert창으로 실패 알리기
