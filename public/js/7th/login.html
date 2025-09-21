@@ -108,14 +108,15 @@
 
     // 성공하면 index.html로 이동
     // 실패하면 기존페이지에서 alert창으로 실패 알리기
-    document.querySelector('.login-btn').addEventListener('submit', function () {
+    document.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
       let username = document.querySelector("#username").value;
       let password = document.querySelector("#password").value;
-      if (members.filter((item) => item.id == username && item.pass == password)) {
+      let matchedUser = members.find((item) => item.id == username && item.pass == password);
+      if (matchedUser) {
         location.href = 'index.html';
       } else {
         alert('로그인 실패!');
-        return;
       }
     });
   </script>

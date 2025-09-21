@@ -44,15 +44,6 @@ function loadData() {
     });
     div.appendChild(btn);
 
-    // 삭제버튼.
-    let delBtn = document.createElement('button');
-    delBtn.innerHTML = '삭제';
-    delBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-
-    });
-    div.appendChild(delBtn);
-
     document.querySelector('.data-container').appendChild(div);
 
     // 초기화.
@@ -77,7 +68,7 @@ document.querySelector('form').addEventListener('submit', function (e) {
   }
 
   // 중복값 확인
-  if (data.filter((item) => item.sno == sno)) {
+  if (data.find((item) => item.sno == sno)) {
     alert('중복된 아이디가 존재합니다.');
     return;
   };
