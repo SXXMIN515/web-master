@@ -1,13 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "public"
+			"path": "."
 		},
 		{
-			"path": "../server"
+			"path": "../node"
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "public"
+		"liveServer.settings.multiRootWorkspaceName": "web-master"
 	}
 }
