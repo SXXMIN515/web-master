@@ -61,7 +61,7 @@ document.querySelector('div.search-container button[type="button"]')
           document.querySelector('#list').appendChild(tr);
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   });
 
 // 사원정보 => row 생성.
