@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>login.html</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      /* Ensures padding doesn't affect the width */
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      /* 버튼 사이 간격 자동 배분 */
+      gap: 10px;
+      /* 버튼 사이 간격 */
+      margin-top: 20px;
+    }
+
+    .btn-group button {
+      flex: 1;
+      /* 버튼이 균등하게 넓이 차지 */
+      padding: 12px 0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-group button:hover {
+      transform: translateY(-2px);
+      /* 살짝 들리는 느낌 */
+    }
+
+    /* 개별 버튼 색상 */
+    .login-btn {
+      background-color: #007bff;
+    }
+
+    .login-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .signup-btn {
+      background-color: #28a745;
+    }
+
+    .signup-btn:hover {
+      background-color: #1e7e34;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>로그인</h2>
+    <form action="#">
+      <div class="input-group">
+        <label for="username">아이디</label>
+        <input type="text" id="username" name="username" required />
+      </div>
+      <div class="input-group">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="login-btn">로그인</button>
+        <button type="button" class="signup-btn" onclick="location.href='./signup.html'">회원가입</button>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
