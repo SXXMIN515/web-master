@@ -1,0 +1,16 @@
+--락커테이블
+--락커아이디(시퀀스)
+DROP SEQUENCE locker_id_seq;
+CREATE SEQUENCE locker_id_seq
+  INCREMENT BY 1
+  START WITH 1
+  MAXVALUE 100000
+  MINVALUE 1
+  CYCLE;
+
+DROP TABLE locker purge;
+CREATE TABLE locker (
+  locker_id NUMBER(6, 0) CONSTRAINT locker_locker_id_pk PRIMARY KEY, --락커아이디(pk, seq)
+  member_id NUMBER(6, 0), --회원아이디
+  locker_reg_date DATE DEFAULT SYSDATE --락커등록날짜
+);
