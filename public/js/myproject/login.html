@@ -16,7 +16,10 @@
       margin: 0;
     }
 
-    .login-container {
+    .login-container,
+    .signup-container,
+    .findId-container,
+    .findPW-container {
       background-color: #fff;
       padding: 40px;
       border-radius: 8px;
@@ -25,7 +28,10 @@
       text-align: center;
     }
 
-    .login-container h2 {
+    .login-container h2,
+    .signup-container h2,
+    .findId-container h2,
+    .findPW-container h2 {
       margin-bottom: 20px;
       color: #333;
     }
@@ -78,8 +84,63 @@
       /* 살짝 들리는 느낌 */
     }
 
+    /* 찾기버튼 */
+    .findBtn-group {
+      display: flex;
+      justify-content: flex-end;
+      /* 오른쪽 정렬 */
+      align-items: center;
+      /* 세로 중앙 정렬 */
+      gap: 5px;
+      /* 버튼과 구분자 사이 간격 */
+      margin-bottom: 15px;
+      /* 위아래 여백 */
+    }
+
+    .findBtn-group .divider {
+      display: inline-flex;
+      /* 버튼과 같은 라인에 정렬 */
+      align-items: center;
+      /* 세로 중앙 맞춤 */
+      height: 100%;
+      /* 버튼 높이 맞춤 */
+      color: #555;
+      /* 구분자 색상 */
+      user-select: none;
+      /* 텍스트 선택 방지 */
+    }
+
+    .findBtn-group button {
+      background: none;
+      /* 배경 없애기 */
+      border: none;
+      /* 테두리 없애기 */
+      color: #007bff;
+      /* 글자색 */
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      /* 기본 패딩 제거 */
+    }
+
+    .findBtn-group button:hover {
+      text-decoration: underline;
+      /* 마우스 올리면 밑줄 */
+    }
+
+    .findBtn-group .divider {
+      margin: 0 5px;
+      /* 글자 사이 간격 */
+      color: #555;
+      /* 구분자 색상 */
+      user-select: none;
+      /* 선택 안 되게 */
+    }
+
     /* 개별 버튼 색상 */
-    .login-btn {
+    .login-btn,
+    .findId-btn,
+    .findPW-btn {
       background-color: #007bff;
     }
 
@@ -98,23 +159,144 @@
 </head>
 
 <body>
+  <!-- 로그인 -->
   <div class="login-container">
-    <h2>로그인</h2>
-    <form action="#">
+    <form class="login-form" action="#">
+      <h2>로그인</h2>
       <div class="input-group">
-        <label for="username">아이디</label>
-        <input type="text" id="username" name="username" required />
+        <label for="login-id">아이디</label>
+        <input type="text" id="login-id" name="login-id" required />
       </div>
       <div class="input-group">
-        <label for="password">비밀번호</label>
-        <input type="password" id="password" name="password" required />
+        <label for="login-pw">비밀번호</label>
+        <input type="password" id="login-pw" name="login-pw" required />
+      </div>
+      <div class="findBtn-group">
+        <button type="button" class="login-findId-btn">아이디찾기</button>
+        <span class="divider">/</span>
+        <button type="button" class="login-findPW-btn">비밀번호찾기</button>
       </div>
       <div class="btn-group">
         <button type="submit" class="login-btn">로그인</button>
-        <button type="button" class="signup-btn" onclick="location.href='./signup.html'">회원가입</button>
+        <button type="button" class="signup-btn">회원가입</button>
       </div>
     </form>
   </div>
+  <!-- 회원가입 -->
+  <div class="signup-container" style="display:none;">
+    <form class="signup-form" action="#" style="position: relative;">
+      <!-- 뒤로가기 아이콘 -->
+      <span id="back-to-login" style="position: absolute; top: 10px; left: 10px; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+        </svg>
+      </span>
+      <h2>회원가입</h2>
+      <div class="input-group">
+        <label for="signup-id">아이디</label>
+        <input type="text" id="signup-id" name="signup-id" required />
+      </div>
+      <div class="input-group">
+        <label for="signup-pw">비밀번호</label>
+        <input type="password" id="signup-pw" name="signup-pw" required />
+      </div>
+      <div class="input-group">
+        <label for="member-name">이름</label>
+        <input type="text" id="member-name" name="member-name" required />
+      </div>
+      <div class="input-group">
+        <label for="birth">생년월일</label>
+        <input type="date" id="birth" name="birth" required />
+      </div>
+      <div class="input-group">
+        <label for="tel">휴대폰번호</label>
+        <input type="text" id="tel" name="tel" placeholder="010-1111-1111" required />
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="signup-btn">가입</button>
+      </div>
+    </form>
+  </div>
+  <!-- 아이디 찾기 -->
+  <div class="findId-container" style="display:none;">
+    <form class="findId-form" action="#" style="position: relative;">
+      <!-- 뒤로가기 아이콘 -->
+      <span id="back-to-login" style="position: absolute; top: 10px; left: 10px; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+        </svg>
+      </span>
+      <h2>아이디 찾기</h2>
+      <div class="input-group">
+        <label for="findId-name">이름</label>
+        <input type="text" id="findId-name" name="findId-name" required />
+      </div>
+      <div class="input-group">
+        <label for="findId-birth">생년월일</label>
+        <input type="date" id="findId-birth" name="findId-birth" required />
+      </div>
+      <div class="input-group">
+        <label for="findId-tel">휴대폰번호</label>
+        <input type="text" id="findId-tel" name="findId-tel" placeholder="010-1111-1111" required />
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="findId-btn">찾기</button>
+      </div>
+    </form>
+  </div>
+  <!-- 비밀번호 찾기 -->
+  <div class="findPW-container" style="display:none;">
+    <form class="findPW-form" action="#" style="position: relative;">
+      <!-- 뒤로가기 아이콘 -->
+      <span id="back-to-login" style="position: absolute; top: 10px; left: 10px; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+        </svg>
+      </span>
+      <h2>비밀번호 찾기</h2>
+      <div class="input-group">
+        <label for="findPW-id">아이디</label>
+        <input type="text" id="findPW-id" name="findPW-id" required />
+      </div>
+      <div class="input-group">
+        <label for="findPW-name">이름</label>
+        <input type="text" id="findPW-name" name="findPW-name" required />
+      </div>
+      <div class="input-group">
+        <label for="findPW-birth">생년월일</label>
+        <input type="date" id="findPW-birth" name="findPW-birth" required />
+      </div>
+      <div class="input-group">
+        <label for="findPW-tel">휴대폰번호</label>
+        <input type="text" id="findPW-tel" name="findPW-tel" placeholder="010-1111-1111" required />
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="findPW-btn">찾기</button>
+      </div>
+    </form>
+  </div>
+  <!-- <h3>회원 정보 목록</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>회원번호</th>
+        <th>아이디</th>
+        <th>비밀번호</th>
+        <th>이름</th>
+        <th>생년월일</th>
+        <th>휴대폰번호</th>
+        <th>가입날짜</th>
+      </tr>
+    </thead>
+    <tbody id="memberList"></tbody>
+  </table> -->
+  <script src="login.js"></script>
 </body>
 
 </html>
