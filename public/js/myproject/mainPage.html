@@ -1,30 +1,352 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>mainPage.html</title>
+  <title>메인페이지</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f8f9fa;
+      color: #343a40;
+    }
+
+    /* 상단바 */
+    header {
+      background-color: #0d6efd;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .top-right button {
+      margin-left: 10px;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .login-btn {
+      background-color: #198754;
+    }
+
+    .login-btn:hover {
+      background-color: #157347;
+    }
+
+    .signup-btn,
+    .myPage-btn {
+      background-color: #ffc107;
+      color: #212529;
+    }
+
+    .signup-btn:hover,
+    .myPage-btn:hover {
+      background-color: #e0a800;
+    }
+
+    .logout-btn {
+      background-color: #dc3545;
+    }
+
+    .logout-btn:hover {
+      background-color: #c82333;
+    }
+
+    /* 레이아웃 */
+    .container {
+      display: flex;
+      padding: 25px;
+      gap: 20px;
+    }
+
+    /* 사이드바 */
+    .sidebar {
+      width: 220px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      flex-shrink: 0;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      color: #0d6efd;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+
+    .sidebar li {
+      margin: 12px 0;
+      cursor: pointer;
+      padding: 8px 10px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .sidebar li:hover {
+      background-color: #e9ecef;
+      color: #0d6efd;
+    }
+
+    /* 메인 컨텐츠 */
+    .main-content {
+      flex: 1;
+    }
+
+    .search-sort {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-sort>div {
+      display: flex;
+      flex: 1;
+      /* 부모 안에서 가능한 모든 공간 차지 */
+      gap: 10px;
+      /* 검색창과 버튼 사이 간격 */
+    }
+
+    .search-sort select,
+    .search-sort input[type="text"] {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-sort input[type="text"] {
+      flex: 1;
+    }
+
+    .search-sort button.search-btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #0d6efd;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 0 0 auto;
+      /* 버튼 크기는 고정 */
+    }
+
+    .search-sort button.search-btn:hover {
+      background-color: #0b5ed7;
+    }
+
+    /* 테이블 */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .table th,
+    .table td {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .table th {
+      background-color: #0d6efd;
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .table tr {
+      transition: background-color 0.2s ease;
+    }
+
+    .table tr:hover {
+      background-color: #f1f3f5;
+    }
+
+    /* 버튼 그룹 */
+    .btn-group button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      color: white;
+      margin-right: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .apply-btn {
+      background-color: #198754;
+    }
+
+    .apply-btn:hover {
+      background-color: #157347;
+    }
+
+    .cancel-btn {
+      background-color: #dc3545;
+    }
+
+    .cancel-btn:hover {
+      background-color: #c82333;
+    }
+
+    /* 전체 페이지네이션 */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin-top: 30px;
+      gap: 4px;
+    }
+
+    /* 각 버튼 */
+    .pagination .page-item .page-link {
+      color: #007bff;
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    /* 마우스 hover */
+    .pagination .page-item .page-link:hover {
+      background-color: #e2e6ea;
+      color: #0056b3;
+    }
+
+    /* 현재 활성화된 버튼 */
+    .pagination .page-item.active .page-link {
+      background-color: #28a745;
+      border-color: #28a745;
+      color: white;
+    }
+
+    /* 비활성화 버튼 */
+    .pagination .page-item.disabled .page-link {
+      background-color: #f8f9fa;
+      color: #6c757d;
+      cursor: not-allowed;
+    }
+
+
+    /* 모바일 대응 */
+    @media screen and (max-width: 768px) {
+      .search-sort {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-sort button.search-btn {
+        width: 100%;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
-  <h1>메인페이지</h1>
-  <h3>수업 목록</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>수업 번호</th>
-        <th>수업 이미지</th>
-        <th>수업 제목</th>
-        <th>수업 시작 날짜</th>
-        <th>수업 종료 날짜</th>
-        <th>설명</th>
-        <th>수강정원</th>
-      </tr>
-    </thead>
-    <tbody id="classList"></tbody>
-  </table>
-  <script src="mainPage.js"></script>
+  <header>
+    <h1>메인페이지</h1>
+    <div class="top-right">
+      <button class="login-btn" onclick="goLogin()">로그인</button>
+      <button class="signup-btn" onclick="goSignup()">회원가입</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <h3>카테고리</h3>
+      <ul>
+        <li data-category="전체">전체</li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="search-sort">
+        <select class="searchCategory">
+          <option selected>전체</option>
+        </select>
+        <div>
+          <input type="text" class="searchKeyword" placeholder="검색어를 입력하세요">
+          <button type="button" class="search-btn">검색</button>
+        </div>
+        <select class="order">
+          <option selected>최신등록순</option>
+          <option>마감빠른순</option>
+          <option>시작일 순</option>
+        </select>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>수업아이디</th>
+            <th>카테고리</th>
+            <th>수업명</th>
+            <th>등록기간</th>
+            <th>수업기간</th>
+            <th>신청인원/정원</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="classList">
+        </tbody>
+      </table>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center" id="pagination">
+          <li class="page-item disabled" id="prev">
+            <a class="page-link" href="#">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item" id="next">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+
+    </main>
+  </div>
 </body>
+<script src="mainPage.js"></script>
 
 </html>

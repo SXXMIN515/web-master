@@ -161,7 +161,15 @@
 <body>
   <!-- 로그인 -->
   <div class="login-container">
-    <form class="login-form" action="#">
+    <form class="login-form" action="#" style="position: relative;">
+      <!-- 뒤로가기 아이콘 -->
+      <span id="back-to-login" style="position: absolute; top: 10px; left: 10px; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+        </svg>
+      </span>
       <h2>로그인</h2>
       <div class="input-group">
         <label for="login-id">아이디</label>
@@ -178,44 +186,7 @@
       </div>
       <div class="btn-group">
         <button type="submit" class="login-btn">로그인</button>
-        <button type="button" class="signup-btn">회원가입</button>
-      </div>
-    </form>
-  </div>
-  <!-- 회원가입 -->
-  <div class="signup-container" style="display:none;">
-    <form class="signup-form" action="#" style="position: relative;">
-      <!-- 뒤로가기 아이콘 -->
-      <span id="back-to-login" style="position: absolute; top: 10px; left: 10px; cursor: pointer;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left"
-          viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
-        </svg>
-      </span>
-      <h2>회원가입</h2>
-      <div class="input-group">
-        <label for="signup-id">아이디</label>
-        <input type="text" id="signup-id" name="signup-id" required />
-      </div>
-      <div class="input-group">
-        <label for="signup-pw">비밀번호</label>
-        <input type="password" id="signup-pw" name="signup-pw" required />
-      </div>
-      <div class="input-group">
-        <label for="member-name">이름</label>
-        <input type="text" id="member-name" name="member-name" required />
-      </div>
-      <div class="input-group">
-        <label for="birth">생년월일</label>
-        <input type="date" id="birth" name="birth" required />
-      </div>
-      <div class="input-group">
-        <label for="tel">휴대폰번호</label>
-        <input type="text" id="tel" name="tel" placeholder="010-1111-1111" required />
-      </div>
-      <div class="btn-group">
-        <button type="submit" class="signup-btn">가입</button>
+        <button type="button" class="signup-btn" onclick="goSignup()">회원가입</button>
       </div>
     </form>
   </div>

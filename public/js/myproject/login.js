@@ -22,8 +22,10 @@ document.querySelector('form.login-form')
       .then((result) => {
         console.log(result);
 
+
         // 서버 응답(result)이 성공이면 메인 페이지로 이동
         if (result.success) { // 서버에서 { success: true } 보내주는 경우
+          localStorage.setItem("loginUser", JSON.stringify(result.user)); // 로그인한 사용자 정보 저장(로컬스토리지)
           window.location.href = "mainPage.html"; // 메인 페이지로 이동
         } else {
           alert("아이디 또는 비밀번호가 올바르지 않습니다.");
@@ -37,12 +39,16 @@ document.querySelector('form.login-form')
       .catch((err) => console.log(err));
   });
 
-// 로그인 > 회원가입 버튼 클릭시.
-document.querySelector('div.login-container .signup-btn')
+// 로그인 -> 메인페이지 뒤로가기
+document.querySelector('div.login-container #back-to-login')
   .addEventListener('click', function () {
-    document.querySelector('div.login-container').style.display = 'none'; // 로그인 폼 사라지고
-    document.querySelector('div.signup-container').style.display = ''; // 회원가입 폼 나타나기
+    window.location.href = "mainPage.html";
   });
+
+// 로그인 > 회원가입 버튼 클릭시.
+function goSignup() {
+  window.location.href = "signup.html";
+}
 
 // 로그인 > 아이디 찾기 버튼 클릭시.
 document.querySelector('div.login-container .login-findId-btn')
@@ -69,13 +75,6 @@ document.querySelector('div.findId-container #back-to-login')
 document.querySelector('div.findPW-container #back-to-login')
   .addEventListener('click', function () {
     document.querySelector('div.findPW-container').style.display = 'none'; // 비밀번호 찾기 폼 사라지고
-    document.querySelector('div.login-container').style.display = ''; // 로그인 폼 나타나기
-  });
-
-// 회원가입 -> 로그인 뒤로가기
-document.querySelector('div.signup-container #back-to-login')
-  .addEventListener('click', function () {
-    document.querySelector('div.signup-container').style.display = 'none'; // 회원가입 폼 사라지고
     document.querySelector('div.login-container').style.display = ''; // 로그인 폼 나타나기
   });
 
@@ -155,49 +154,6 @@ document.querySelector('form.findPW-form')
 
         // 입력값 초기화.
         document.querySelectorAll("div.findPW-container input").forEach(input => {
-          input.value = '';
-        });
-      })
-      .catch((err) => console.log(err));
-  });
-
-// 회원가입
-document.querySelector('form.signup-form')
-  .addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    let id = document.querySelector("#signup-id").value;
-    let pw = document.querySelector("#signup-pw").value;
-    let name = document.querySelector("#member-name").value;
-    let birth = document.querySelector("#birth").value;
-    let tel = document.querySelector("#tel").value;
-    fetch("http://localhost:3000/gym/signup", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify({
-          id,
-          pw,
-          name,
-          birth,
-          tel
-        }),
-      })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-
-        // 서버 응답(result)이 성공이면 메인 페이지로 이동
-        if (result.success) { // 서버에서 { success: true } 보내주는 경우
-          alert("가입 완료");
-          window.location.href = "mainPage.html"; // 메인 페이지로 이동
-        } else {
-          alert("가입 실패");
-        }
-
-        // 입력값 초기화.
-        document.querySelectorAll('div.signup-container input').forEach(input => {
           input.value = '';
         });
       })
