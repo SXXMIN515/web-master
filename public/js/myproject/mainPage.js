@@ -13,9 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const topRight = document.querySelector(".top-right");
     topRight.innerHTML = `
       <span>${loginUser.name}님 환영합니다!</span>
-      <button class="myPage-btn" onclick="goMyPage()">마이페이지</button>
+      <button class="myPage-btn">마이페이지</button>
       <button class="logout-btn">로그아웃</button>
     `;
+
+    // 마이페이지 클릭
+    document.querySelector('div.top-right .myPage-btn')
+      .addEventListener('click', function () {
+        window.location.href = `myPage.html?memberId=${loginUser.member_id}`;
+      });
 
     // 로그아웃 처리
     document.querySelector('div.top-right .logout-btn')
@@ -247,7 +253,7 @@ function makeClassList(classInfo) {
   }
 
   applyBtn.addEventListener("click", applyFunc);
-  // cancelBtn.addEventListener("click", cancelFunc);
+  cancelBtn.addEventListener("click", cancelFunc);
 
   tr.appendChild(td);
 
@@ -306,9 +312,53 @@ function applyFunc(e) {
     .catch((err) => console.log(err));
 }
 
-// 취소버튼 클릭시
+// 취소 버튼 클릭 시
 function cancelFunc(e) {
+  const tr = e.target.closest("tr");
+  const classId = tr.dataset.classId;
+  const loginUser = JSON.parse(localStorage.getItem("loginUser"));
 
+  if (!loginUser) {
+    alert("로그인이 필요합니다.");
+    location.href = "login.html";
+    return;
+  }
+
+  const memberId = loginUser.member_id;
+
+  fetch("http://localhost:3000/gym/classCancel", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({
+        memberId: memberId,
+        classId: classId
+      }),
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        alert("수강 취소 완료");
+
+        // 신청 인원 -1 처리
+        const tdList = tr.querySelectorAll("td");
+        const tdEnrollment = tdList[5];
+        const [current, max] = tdEnrollment.textContent.trim().split("/").map(n => parseInt(n));
+        tdEnrollment.textContent = `${current - 1}/${max}`;
+
+        // 버튼 상태 되돌리기
+        const applyBtn = tr.querySelector(".apply-btn");
+        const cancelBtn = tr.querySelector(".cancel-btn");
+
+        applyBtn.disabled = false; // 신청 버튼 활성화
+        applyBtn.textContent = "신청"; // 다시 '신청'으로
+        cancelBtn.style.display = "none"; // 취소 버튼 숨기기
+      } else {
+        alert("수강 취소 실패");
+      }
+    })
+    .catch((err) => console.log(err));
 }
 
 // 수업 렌더링 함수
@@ -318,6 +368,22 @@ function renderClasses(classes) {
   classes.forEach((item) => {
     let tr = makeClassList(item);
     tbody.appendChild(tr);
+  });
+
+  // 수업 목록의 각 행 클릭 시 상세페이지로 이동
+  tbody.querySelectorAll("tr").forEach(row => {
+    row.addEventListener("click", function (e) {
+      // 버튼 클릭은 제외
+      if (e.target.classList.contains('apply-btn') || e.target.classList.contains('cancel-btn')) {
+        e.stopPropagation();
+        return;
+      }
+
+      const classId = this.dataset.classId;
+      if (classId) {
+        window.location.href = `classDetail.html?classId=${classId}`;
+      }
+    });
   });
 }
 
