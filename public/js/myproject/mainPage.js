@@ -12,23 +12,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const topRight = document.querySelector(".top-right");
     topRight.innerHTML = `
-    <span>${loginUser.name}님 환영합니다!</span>
-    <button class="myPage-btn">마이페이지</button>
-    <button class="logout-btn">로그아웃</button>
-  `;
-  }
-  // else {
-  //   // 로그인 정보 없으면 로그인 페이지로 이동
-  //   window.location.href = "login.html";
-  // }
+      <span>${loginUser.name}님 환영합니다!</span>
+      <button class="myPage-btn" onclick="goMyPage()">마이페이지</button>
+      <button class="logout-btn">로그아웃</button>
+    `;
 
-  // 로그아웃 처리
-  document.querySelector('div.top-right .logout-btn')
-    .addEventListener('click', function () {
-      localStorage.removeItem("loginUser");
-      alert("로그아웃 되었습니다.");
-      window.location.href = "mainPage.html";
-    });
+    // 로그아웃 처리
+    document.querySelector('div.top-right .logout-btn')
+      .addEventListener('click', function () {
+        localStorage.removeItem("loginUser");
+        alert("로그아웃 되었습니다.");
+        window.location.href = "mainPage.html";
+      });
+
+    // 로그인 상태면 먼저 내 수업 목록 받아오기
+    fetch(`http://localhost:3000/gym/myClasses?memberId=${loginUser.member_id}`)
+      .then((response) => response.json())
+      .then(result => {
+        console.log("myClasses 결과:", result);
+        // result 가 객체면 result.rows 사용
+        userEnrollments = (result.rows || result).map(item => Number(item.CLASS_ID));
+
+        // 내 수업 목록 받아온 후에 전체 수업 렌더링
+        fetch("http://localhost:3000/gym/classList")
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            allClasses = result || []; // 서버 데이터
+            filteredClasses = [...allClasses]; // 초기엔 전체 보여줌
+            renderPage(1); // 1페이지 출력
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch(err => console.log(err));
+
+  } else {
+    // 로그인 안했으면 그냥 전체 수업 렌더링
+    fetch("http://localhost:3000/gym/classList")
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        allClasses = result || []; // 서버 데이터
+        filteredClasses = [...allClasses]; // 초기엔 전체 보여줌
+        renderPage(1); // 1페이지 출력
+      })
+      .catch((err) => console.log(err));
+  }
 });
 
 // 로그인 페이지로 이동
@@ -41,6 +70,10 @@ function goSignup() {
   window.location.href = "signup.html";
 }
 
+// 마이페이지로 이동
+function goMyPage() {
+  window.location.href = "myPage.html";
+}
 
 // 사이드바 - 카테고리
 fetch("http://localhost:3000/gym/category")
@@ -57,15 +90,13 @@ fetch("http://localhost:3000/gym/category")
 
 // 카테고리 => row 생성.
 function makeCategory(category) {
-  let fields = ["CATEGORY"]; // SQL 테이블 컬명
   let li = document.createElement("li");
   let opt = document.createElement("option");
-  fields.forEach((field) => {
-    li.setAttribute('data-category', category[field]);
-    li.innerHTML = category[field];
-    opt.setAttribute('date-search-category', category[field]);
-    opt.innerHTML = category[field];
-  });
+
+  li.setAttribute('data-category', category.CATEGORY || category.CATEGORY);
+  li.innerHTML = category.CATEGORY;
+  opt.setAttribute('data-search-category', category.CATEGORY);
+  opt.innerHTML = category.CATEGORY;
 
   return [li, opt];
 } // end of makeRow.
@@ -101,24 +132,46 @@ document.querySelector(".search-btn").addEventListener("click", () => {
   renderPage(1); // 결과 1페이지부터 렌더링
 });
 
+// 정렬 기준 변경 이벤트
+document.querySelector('.order').addEventListener('change', (e) => {
+  const sortOption = e.target.value;
+  let sortParam = "";
+
+  // 정렬 로직
+  switch (sortOption) {
+    case 'latest': // 최신 등록순 (class_id 내림차순)
+      sortParam = "latest";
+      break;
+
+    case 'deadline': // 마감 빠른순 (registration_end 오름차순)
+      sortParam = "deadline";
+      break;
+
+    case 'startdate': // 시작일 빠른순 (start_date 오름차순)
+      sortParam = "startdate";
+      break;
+  }
+
+  // 서버로 정렬 기준 전달
+  fetch(`http://localhost:3000/gym/classList?sort=${sortParam}`)
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+      allClasses = result || []; // 전역 변수 갱신
+      filteredClasses = [...allClasses]; // 초기엔 전체 보여줌
+      renderPage(1); // 첫 페이지부터 다시 렌더링
+    })
+    .catch((err) => console.error(err));
+});
 
 
 let allClasses = []; // 서버에서 받은 전체 수업
 let filteredClasses = []; // 현재 선택된 카테고리/검색 후 남은 데이터
-// 수업 목록
-fetch("http://localhost:3000/gym/classList")
-  .then((response) => response.json())
-  .then((result) => {
-    console.log(result);
-    allClasses = result.data || result; // 서버 데이터
-    filteredClasses = [...allClasses]; // 초기엔 전체 보여줌
-    renderPage(1); // 1페이지 출력
-  })
-  .catch((err) => console.log(err));
+let userEnrollments = []; // 로그인한 사용자가 신청한 수업 ID 배열
 
 // 수업정보 => row 생성.
 function makeClassList(classInfo) {
-  let fields = ["CLASS_ID", "CATEGORY", "CLASS_NAME", "REGISTRATION_START", "REGISTRATION_END", "START_DATE", "END_DATE", "ENROLLMENT_COUNT", "CLASS_CAPACITY"]; // SQL 테이블 컬명
+  // let fields = ["CLASS_ID", "CATEGORY", "CLASS_NAME", "REGISTRATION_START", "REGISTRATION_END", "START_DATE", "END_DATE", "ENROLLMENT_COUNT", "CLASS_CAPACITY"]; // SQL 테이블 컬명
   let tr = document.createElement("tr");
   tr.setAttribute('data-class-id', classInfo.CLASS_ID);
 
@@ -152,40 +205,110 @@ function makeClassList(classInfo) {
   tdEnrollment.innerHTML = `${classInfo.ENROLLMENT_COUNT}/${classInfo.CLASS_CAPACITY}`;
   tr.appendChild(tdEnrollment);
 
+
   // 7. 신청버튼, 취소버튼
   let td = document.createElement("td");
   td.setAttribute('class', 'btn-group');
+
   let applyBtn = document.createElement("button");
   let cancelBtn = document.createElement("button");
+
   applyBtn.setAttribute('class', 'apply-btn');
-  applyBtn.innerHTML = "신청";
-  // applyBtn.addEventListener("click", applyFunc);
   cancelBtn.setAttribute('class', 'cancel-btn');
+
+  applyBtn.innerHTML = "신청";
   cancelBtn.innerHTML = "취소";
+
+  // 로그인 상태 확인
+  const loginUser = JSON.parse(localStorage.getItem("loginUser"));
+
+  // 버튼 상태 결정
+  if (!loginUser) {
+    // 로그인 안 했을 때: 신청 버튼만
+    td.appendChild(applyBtn);
+  } else {
+    // 로그인 했을 때
+    if (userEnrollments.includes(Number(classInfo.CLASS_ID))) {
+      // 이미 신청한 수업
+      applyBtn.innerText = "신청 완료";
+      applyBtn.disabled = true;
+
+      cancelBtn.disabled = false; // 취소 가능
+      cancelBtn.style.display = "inline-block"; // 보이게
+    } else {
+      // 아직 신청 안 한 수업
+      applyBtn.disabled = false;
+
+      cancelBtn.disabled = true; // 취소 불가
+      cancelBtn.style.display = "none"; // 안보이게
+    }
+    td.appendChild(applyBtn);
+    td.appendChild(cancelBtn);
+  }
+
+  applyBtn.addEventListener("click", applyFunc);
   // cancelBtn.addEventListener("click", cancelFunc);
-  td.appendChild(applyBtn);
-  td.appendChild(cancelBtn);
+
   tr.appendChild(td);
 
   return tr;
 } // end of makeClassList.
 
-// 취소버튼 클릭시
-function cancelFunc(e) {
-  let thisTr = this.parentElement.parentElement;
-  let eno = this.parentElement.parentElement.dataset.eno;
-  //console.log(this.parentElement.parentElement.dataset); // data-eno
-  fetch("http://localhost:3000/emp/" + eno)
+// 신청버튼 클릭시
+function applyFunc(e) {
+  const tr = e.target.closest("tr");
+  const classId = tr.dataset.classId; // data-class-id
+  const loginUser = JSON.parse(localStorage.getItem("loginUser"));
+
+  if (!loginUser) {
+    alert("로그인이 필요합니다.");
+    location.href = "login.html";
+    return;
+  }
+
+  const memberId = loginUser.member_id; // 로컬스토리지에서 가져오기
+
+  fetch("http://localhost:3000/gym/classApply", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({
+        memberId: memberId,
+        classId: classId
+      }),
+    })
     .then((response) => response.json())
     .then((result) => {
-      if (result.rowsAffected) {
-        alert("성공");
-        thisTr.remove();
+      if (result.success) {
+        alert("신청 완료");
+
+        // 새로고침 대신 신청 인원만 +1
+        const tdList = tr.querySelectorAll("td");
+        // 신청인원/정원은 6번째(tdEnrollment), 즉 tdList[5]
+        const tdEnrollment = tdList[5];
+        const text = tdEnrollment.textContent.trim(); // 예: "3/20"
+        const [current, max] = text.split("/").map(n => parseInt(n));
+        tdEnrollment.textContent = `${current + 1}/${max}`;
+
+        // 버튼 상태 변경
+        e.target.disabled = true; // 신청버튼 사라지고
+        e.target.textContent = "신청 완료"; // 신청취소
+
+        // **취소버튼 나타나게 하기**
+        const cancelBtn = tr.querySelector(".cancel-btn");
+        cancelBtn.style.display = "inline-block"; // 보이게
+        cancelBtn.disabled = false; // 클릭 가능
       } else {
-        alert("실패");
+        alert("신청 실패");
       }
     })
     .catch((err) => console.log(err));
+}
+
+// 취소버튼 클릭시
+function cancelFunc(e) {
+
 }
 
 // 수업 렌더링 함수
