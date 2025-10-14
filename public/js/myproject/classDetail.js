@@ -52,7 +52,7 @@ function formatDate(dateStr) {
 
 // 수업 상세정보 fetch
 if (classId) {
-  fetch(`http://localhost:3000/gym/classDetail?classId=${classId}`)
+  fetch(`http://192.168.0.13:3000/gym/classDetail?classId=${classId}`)
     .then(res => res.json())
     .then(result => {
       if (result.length > 0) {

@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     // 로그인 상태면 먼저 내 수업 목록 받아오기
-    fetch(`http://localhost:3000/gym/myClasses?memberId=${loginUser.member_id}`)
+    fetch(`http://192.168.0.13:3000/gym/myClasses?memberId=${loginUser.member_id}`)
       .then((response) => response.json())
       .then(result => {
         console.log("myClasses 결과:", result);
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         userEnrollments = (result.rows || result).map(item => Number(item.CLASS_ID));
 
         // 내 수업 목록 받아온 후에 전체 수업 렌더링
-        fetch("http://localhost:3000/gym/classList")
+        fetch("http://192.168.0.13:3000/gym/classList")
           .then((response) => response.json())
           .then((result) => {
             console.log(result);
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   } else {
     // 로그인 안했으면 그냥 전체 수업 렌더링
-    fetch("http://localhost:3000/gym/classList")
+    fetch("http://192.168.0.13:3000/gym/classList")
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
@@ -82,7 +82,7 @@ function goMyPage() {
 }
 
 // 사이드바 - 카테고리
-fetch("http://localhost:3000/gym/category")
+fetch("http://192.168.0.13:3000/gym/category")
   .then((response) => response.json())
   .then((result) => {
     console.log(result);
@@ -99,7 +99,7 @@ function makeCategory(category) {
   let li = document.createElement("li");
   let opt = document.createElement("option");
 
-  li.setAttribute('data-category', category.CATEGORY || category.CATEGORY);
+  li.setAttribute('data-category', category.CATEGORY);
   li.innerHTML = category.CATEGORY;
   opt.setAttribute('data-search-category', category.CATEGORY);
   opt.innerHTML = category.CATEGORY;
@@ -159,7 +159,7 @@ document.querySelector('.order').addEventListener('change', (e) => {
   }
 
   // 서버로 정렬 기준 전달
-  fetch(`http://localhost:3000/gym/classList?sort=${sortParam}`)
+  fetch(`http://192.168.0.13:3000/gym/classList?sort=${sortParam}`)
     .then((response) => response.json())
     .then((result) => {
       console.log(result);
@@ -274,7 +274,7 @@ function applyFunc(e) {
 
   const memberId = loginUser.member_id; // 로컬스토리지에서 가져오기
 
-  fetch("http://localhost:3000/gym/classApply", {
+  fetch("http://192.168.0.13:3000/gym/classApply", {
       method: "post",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -326,7 +326,7 @@ function cancelFunc(e) {
 
   const memberId = loginUser.member_id;
 
-  fetch("http://localhost:3000/gym/classCancel", {
+  fetch("http://192.168.0.13:3000/gym/classCancel", {
       method: "post",
       headers: {
         "Content-Type": "application/json;charset=utf-8",

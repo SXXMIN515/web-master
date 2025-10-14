@@ -8,7 +8,7 @@ document.querySelector('form.login-form')
     e.preventDefault();
     let id = document.querySelector("#login-id").value;
     let pw = document.querySelector("#login-pw").value;
-    fetch("http://localhost:3000/gym/login", {
+    fetch("http://192.168.0.13:3000/gym/login", {
         method: "post",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
@@ -86,7 +86,7 @@ document.querySelector('form.findId-form')
     let name = document.querySelector("#findId-name").value;
     let birth = document.querySelector("#findId-birth").value;
     let tel = document.querySelector("#findId-tel").value;
-    fetch("http://localhost:3000/gym/findId", {
+    fetch("http://192.168.0.13:3000/gym/findId", {
         method: "post",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
@@ -127,7 +127,7 @@ document.querySelector('form.findPW-form')
     let name = document.querySelector("#findPW-name").value;
     let birth = document.querySelector("#findPW-birth").value;
     let tel = document.querySelector("#findPW-tel").value;
-    fetch("http://localhost:3000/gym/findPW", {
+    fetch("http://192.168.0.13:3000/gym/findPW", {
         method: "post",
         headers: {
           "Content-Type": "application/json;charset=utf-8",

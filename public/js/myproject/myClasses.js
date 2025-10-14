@@ -47,7 +47,7 @@ function goMyClasses() {
 }
 
 function goMyPage() {
-  window.location.href = "myPage.html";
+  window.location.href = `myPage.html?memberId=${loginUser.member_id}`;
 }
 
 // URL에서 memberId 가져오기
@@ -66,11 +66,15 @@ function formatDate(dateStr) {
 
 // 수업 상세정보 fetch
 if (memberId) {
-  fetch(`http://localhost:3000/gym/myClasses?memberId=${memberId}`)
+  fetch(`http://192.168.0.13:3000/gym/myClasses?memberId=${memberId}`)
     .then(res => res.json())
     .then(result => {
       if (result.length > 0) {
-        renderClassList(result);
+        console.log(result);
+        result.forEach((item) => {
+          let tr = renderClassList(item);
+          document.querySelector("#myClasses").appendChild(tr);
+        });
       } else {
         alert("신청한 수업 정보가 없습니다.");
       }
@@ -79,81 +83,34 @@ if (memberId) {
 }
 
 // 여러 수업 DOM 생성 (스타일은 CSS에 의존)
-function renderClassList(classArray) {
-  const main = document.querySelector(".main-content");
-  main.innerHTML = "";
+function renderClassList(classInfo) {
+  let tr = document.createElement("tr");
+  tr.setAttribute('data-class-id', classInfo.CLASS_ID);
 
-  classArray.forEach(classInfo => {
-    const card = document.createElement("div");
-    card.className = "class-card";
+  // 1. 카테고리
+  let tdCategory = document.createElement("td");
+  tdCategory.innerHTML = classInfo.CATEGORY;
+  tr.appendChild(tdCategory);
 
-    // 제목
-    const title = document.createElement("div");
-    title.className = "class-title";
-    title.textContent = classInfo.CLASS_NAME || "-";
-    card.appendChild(title);
+  // 2. 수업명
+  let tdName = document.createElement("td");
+  tdName.innerHTML = classInfo.CLASS_NAME;
+  tr.appendChild(tdName);
 
-    // 정보 container
-    const infoContainer = document.createElement("div");
-    infoContainer.className = "class-info";
+  // 3. 등록기간 (REGISTRATION_START ~ REGISTRATION_END)
+  let tdRegistration = document.createElement("td");
+  tdRegistration.innerHTML = `${classInfo.REGISTRATION_START} ~ ${classInfo.REGISTRATION_END}`;
+  tr.appendChild(tdRegistration);
 
-    const infoFields = [{
-        label: "카테고리",
-        value: classInfo.CATEGORY
-      },
-      {
-        label: "등록기간",
-        value: `${formatDate(classInfo.REGISTRATION_START)} ~ ${formatDate(classInfo.REGISTRATION_END)}`
-      },
-      {
-        label: "수업기간",
-        value: `${formatDate(classInfo.START_DATE)} ~ ${formatDate(classInfo.END_DATE)}`
-      },
-      {
-        label: "신청인원/정원",
-        value: `${classInfo.ENROLLMENT_COUNT}/${classInfo.CLASS_CAPACITY}`
-      }
-    ];
+  // 4. 수업기간 (START_DATE ~ END_DATE)
+  let tdClassPeriod = document.createElement("td");
+  tdClassPeriod.innerHTML = `${classInfo.START_DATE} ~ ${classInfo.END_DATE}`;
+  tr.appendChild(tdClassPeriod);
 
-    infoFields.forEach(item => {
-      const div = document.createElement("div");
+  // 5. 신청인원/정원 (ENROLLMENT_COUNT / CLASS_CAPACITY)
+  let tdEnrollment = document.createElement("td");
+  tdEnrollment.innerHTML = `${classInfo.ENROLLMENT_COUNT}/${classInfo.CLASS_CAPACITY}`;
+  tr.appendChild(tdEnrollment);
 
-      const label = document.createElement("span");
-      label.className = "info-label";
-      label.textContent = item.label;
-
-      const value = document.createElement("span");
-      value.textContent = item.value || "-";
-
-      div.appendChild(label);
-      div.appendChild(value);
-      infoContainer.appendChild(div);
-    });
-
-    // 상세설명
-    const descLabel = document.createElement("div");
-    descLabel.textContent = "상세설명";
-    infoContainer.appendChild(descLabel);
-
-    const desc = document.createElement("p");
-    desc.id = "classDescription";
-    desc.textContent = classInfo.CLASS_DESCRIPTION || "-";
-    infoContainer.appendChild(desc);
-
-    card.appendChild(infoContainer);
-
-    // 버튼 그룹
-    const btnGroup = document.createElement("div");
-    btnGroup.className = "btn-group";
-
-    const backBtn = document.createElement("button");
-    backBtn.className = "back-btn";
-    backBtn.textContent = "목록으로";
-    backBtn.onclick = goMain;
-
-    btnGroup.appendChild(backBtn);
-    card.appendChild(btnGroup);
-
-    main.appendChild(card);
-  });
+  return tr;
 }
