@@ -8,9 +8,12 @@
     },
     {
       "path": "../nodejs"
+    },
+    {
+      "path": "../vuejs"
     }
   ],
   "settings": {
-    "liveServer.settings.multiRootWorkspaceName": "node"
+    "liveServer.settings.multiRootWorkspaceName": "vuejs"
   }
 }
