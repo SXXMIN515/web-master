@@ -1,16 +1,19 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../../server"
-		},
-		{
-			"path": "../node"
-		}
-	],
-	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "web-master"
-	}
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../node"
+    },
+    {
+      "path": "../nodejs"
+    },
+    {
+      "path": "../vuejs"
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "node"
+  }
 }
