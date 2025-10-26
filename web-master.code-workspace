@@ -14,6 +14,10 @@
     }
   ],
   "settings": {
+<<<<<<< HEAD
     "liveServer.settings.multiRootWorkspaceName": "node"
+=======
+    "liveServer.settings.multiRootWorkspaceName": "vuejs"
+>>>>>>> 5b244dd291908c7e0a4b46841abb273c36419056
   }
 }
